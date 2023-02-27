@@ -1,12 +1,12 @@
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useQuery } from "react-query";
 
 import { requestPokemon } from "../../requests";
 
 interface UseRequestPokemonQueryInterface {
-  offset: number
+  id: number
 }
 
-export const useRequestPokemonQuery = ({ offset }: UseRequestPokemonQueryInterface) =>
-  useQuery<any>(
-    ['pokemon', offset],
-    () => requestPokemon({ params: { limit: 20, offset } }).then((res) => res.data))
+export const useQueryPokemonQuery = ({ id }: UseRequestPokemonQueryInterface) =>
+  useQuery<unknown>(
+    ['pokemon', id], () => requestPokemon({ params: { id } }),
+  )

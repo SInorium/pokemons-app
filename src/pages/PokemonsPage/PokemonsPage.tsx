@@ -1,32 +1,15 @@
-import React, { useEffect } from 'react';
-import { isError, useQuery } from 'react-query';
+import React from 'react';
 
-import { useRequestPokemonQuery } from '../../utils/api/hooks';
-
-type Response = {
-  name: string;
-  url: string;
-};
+import { Pokemon } from './Pokemon/Pokemon';
 
 const PokemonsPage = () => {
-  const [offset, setOffset] = React.useState(0);
-  const { data, isLoading } = useRequestPokemonQuery({ offset });
-  if (isLoading) return <div>loading...</div>;
+  const [pokemons, setPokemons] = React.useState(Array.from({ length: 20 }));
 
   return (
-    <div>
-      <button
-        className='rounded-sm bg-slate-400 p-2 mb-3'
-        onClick={() => setOffset((prev) => prev + 10)}
-      >
-        offset +10
-      </button>
-      <ul className='flex-col items-center justify-center flex'>
-        {data.results?.map((item: Response) => (
-          <li className='rounded-md bg-green-200 mb-2 w-max' key={item.url}>
-            <p>{item.name}</p>
-            <p>{item.url}</p>
-          </li>
+    <div className='container'>
+      <ul className='grid grid-cols-3 gap-3'>
+        {pokemons.map((_data, index) => (
+          <Pokemon key={index} id={index + 1} />
         ))}
       </ul>
     </div>
